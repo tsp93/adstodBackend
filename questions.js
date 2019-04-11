@@ -17,7 +17,7 @@ async function getQuestions({ language = 'ICE' }) {
     SELECT q.id, q.QuestionText, q.OptionCount, o2.OptionText
     FROM Questions${language} q
     JOIN OptionsForAnswers${language} o on q.ID = o.QuestionID
-    JOIN OptionsICE o2 on o.OptionID = o2.ID WHERE q.id = $1`;
+    JOIN Options${language} o2 on o.OptionID = o2.ID WHERE q.id = $1`;
   for (let i = 0; i < questions.length; i += 1) {
     results.push(query(SQLquery, [questions[i].id]));
   }
