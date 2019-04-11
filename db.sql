@@ -130,10 +130,10 @@ INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (9, 'Hefur þú 
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (10, 'Hversu oft hefur þú neytt vímuefna á síðastliðnum mánuði?', 6);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (11, 'Finnst þér þú finna fyrir mismunun í samfélaginu vegna uppruna þíns?', 2);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (12, 'Hefur einhver náin þér dáið á síðastliðnum 2 mánuðum?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir depurð á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef hugsað um líflát á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir depurð á síðustu 2 mánuðum?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef hugsað um líflát á síðustu 2 mánuðum?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum?', 5);
 
 -- Inserting questions in english
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (1, 'Gender?', 3);
@@ -148,10 +148,10 @@ INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (9, 'Have you us
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (10, 'How often have you used drugs in the last month', 6);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (11, 'Do you feel oppressed in the community due to your origin?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (12, 'Has anyone close to you died in the last 2 months?', 2);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (13, 'How well does the following statement apply to you: "I have felt sad in the last 2 months"?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (14, 'How well does the following statement apply to you: "I have considered suicide in the last 2 months"?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (15, 'How well does the following statement apply to you: "I have felt lonely in the last 2 months"?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (16, 'How well does the following statement apply to you: "I have felt unhappy in one or more of my relationships in the last 2 months"?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (13, 'How well does the following statement apply to you: I have felt sad in the last 2 months?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (14, 'How well does the following statement apply to you: I have considered suicide in the last 2 months?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (15, 'How well does the following statement apply to you: I have felt lonely in the last 2 months?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (16, 'How well does the following statement apply to you: I have felt unhappy in one or more of my relationships in the last 2 months?', 5);
 
 -- Inserting questions in polish
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (1, 'Jaka jest twoja plec?', 3); -- Polish translation needed
