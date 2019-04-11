@@ -1,123 +1,109 @@
-﻿/*
- * Creating the Database for use in the project adstod
- * For Group 5
- */
-
-CREATE TABLE QuestionsICE(                   -- Table holding all questions in icelandic
-  ID BIGINT PRIMARY KEY ,
+﻿CREATE TABLE QuestionsICE(
+  ID BIGINT PRIMARY KEY,
   QuestionText VARCHAR(255) NOT NULL,
   OptionCount INT NOT NULL
 );
 
-CREATE TABLE QuestionsENG(                   -- Table holding all questions in english
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE QuestionsENG(
+  ID BIGINT PRIMARY KEY,
   QuestionText VARCHAR(255) NOT NULL,
   OptionCount INT NOT NULL
 );
 
-CREATE TABLE QuestionsPOL(                   -- Table holding all questions in polish
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE QuestionsPOL(
+  ID BIGINT PRIMARY KEY,
   QuestionText VARCHAR(255) NOT NULL,
   OptionCount INT NOT NULL
 );
 
-CREATE TABLE OptionsICE(                     -- Table holding all possible answers to questions
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE OptionsICE(
+  ID BIGINT PRIMARY KEY,
   OptionText VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE OptionsENG(                     -- Table holding all possible answers to questions
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE OptionsENG(
+  ID BIGINT PRIMARY KEY,
   OptionText VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE OptionsPOL(                     -- Table holding all possible answers to questions
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE OptionsPOL(
+  ID BIGINT PRIMARY KEY,
   OptionText VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE PhoneNumbers(                -- Table holding phone numbers for all assistance resources
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE PhoneNumbers(
+  ID BIGINT PRIMARY KEY,
   Number VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE AssistanceResourcesICE(         -- Table holding names and links of all assistance resources that can pop up in results - Icelandic
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE AssistanceResourcesICE(
+  ID BIGINT PRIMARY KEY,
   Title VARCHAR(255) NOT NULL,
   Link TEXT NOT NULL,
   Description TEXT NOT NULL,
   PhoneNumberCount INT NOT NULL
 );
 
-CREATE TABLE AssistanceResourcesENG(         -- Table holding names and links of all assistance resources that can pop up in results - English
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE AssistanceResourcesENG(
+  ID BIGINT PRIMARY KEY,
   Title VARCHAR(255) NOT NULL,
   Link TEXT NOT NULL,
   Description TEXT NOT NULL,
   PhoneNumberCount INT NOT NULL
 );
 
-CREATE TABLE AssistanceResourcesPOL(         -- Table holding names and links of all assistance resources that can pop up in results - Polish
-  ID BIGINT PRIMARY KEY ,
+CREATE TABLE AssistanceResourcesPOL(
+  ID BIGINT PRIMARY KEY,
   Title VARCHAR(255) NOT NULL,
   Link TEXT NOT NULL,
   Description TEXT NOT NULL,
   PhoneNumberCount INT NOT NULL
 );
 
-/**
- * This table connects the PhoneNumbers table to the AssistanceResources tables
- * Each assistance resource can have many phone numbers
- * Each phone number can belong to multiple assistance resources
- * This makes the connection table useful for reducing redundant data
- */
 CREATE TABLE PhoneNumbersForResourcesICE(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   PhoneNumberID BIGINT NOT NULL REFERENCES PhoneNumbers(ID),
   AssistanceResourceID BIGINT NOT NULL REFERENCES AssistanceResourcesICE(ID)
 );
 
 CREATE TABLE PhoneNumbersForResourcesENG(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   PhoneNumberID BIGINT NOT NULL REFERENCES PhoneNumbers(ID),
   AssistanceResourceID BIGINT NOT NULL REFERENCES AssistanceResourcesENG(ID)
 );
 
 CREATE TABLE PhoneNumbersForResourcesPOL(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   PhoneNumberID BIGINT NOT NULL REFERENCES PhoneNumbers(ID),
   AssistanceResourceID BIGINT NOT NULL REFERENCES AssistanceResourcesPOL(ID)
 );
 
-/*
- * These tables connect the Options tables to the Questions tables
- * Each questionText has multiple options
- * Each option can be used in multiple questions
- * This makes the connection tables useful for reducing redundant data
- */
 CREATE TABLE OptionsForAnswersICE(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   QuestionID BIGINT NOT NULL REFERENCES QuestionsICE(ID),
   OptionID BIGINT NOT NULL REFERENCES OptionsICE(ID),
   NextQuestionID BIGINT REFERENCES QuestionsICE(ID)
 );
 
 CREATE TABLE OptionsForAnswersENG(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   QuestionID BIGINT NOT NULL REFERENCES QuestionsENG(ID),
   OptionID BIGINT NOT NULL REFERENCES OptionsENG(ID),
   NextQuestionID BIGINT REFERENCES QuestionsENG(ID)
 );
 
 CREATE TABLE OptionsForAnswersPOL(
-  ID BIGINT PRIMARY KEY ,
+  ID BIGINT PRIMARY KEY,
   QuestionID BIGINT NOT NULL REFERENCES QuestionsPOL(ID),
   OptionID BIGINT NOT NULL REFERENCES OptionsPOL(ID),
   NextQuestionID BIGINT REFERENCES QuestionsPOL(ID)
 );
 
--- Inserts
--- Inserting questions in icelandic
+CREATE TABLE SavedAnswers(
+  ID BIGINT PRIMARY KEY,
+  Answers VARCHAR(255) NOT NULL
+);
+
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (1, 'Kyn?', 3);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (2, 'Aldursbil?', 5);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (3, 'Hjúskaparstaða?', 3);
@@ -130,12 +116,11 @@ INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (9, 'Hefur þú 
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (10, 'Hversu oft hefur þú neytt vímuefna á síðastliðnum mánuði?', 6);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (11, 'Finnst þér þú finna fyrir mismunun í samfélaginu vegna uppruna þíns?', 2);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (12, 'Hefur einhver náin þér dáið á síðastliðnum 2 mánuðum?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir depurð á síðustu 2 mánuðum?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef hugsað um líflát á síðustu 2 mánuðum?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir depurð á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef hugsað um líflát á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum"?', 5);
 
--- Inserting questions in english
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (1, 'Gender?', 3);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (2, 'Age range?', 5);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (3, 'Relationship Status?', 3);
@@ -148,30 +133,29 @@ INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (9, 'Have you us
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (10, 'How often have you used drugs in the last month', 6);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (11, 'Do you feel oppressed in the community due to your origin?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (12, 'Has anyone close to you died in the last 2 months?', 2);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (13, 'How well does the following statement apply to you: I have felt sad in the last 2 months?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (14, 'How well does the following statement apply to you: I have considered suicide in the last 2 months?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (15, 'How well does the following statement apply to you: I have felt lonely in the last 2 months?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (16, 'How well does the following statement apply to you: I have felt unhappy in one or more of my relationships in the last 2 months?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (13, 'How well does the following statement apply to you: "I have felt sad in the last 2 months"?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (14, 'How well does the following statement apply to you: "I have considered suicide in the last 2 months"?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (15, 'How well does the following statement apply to you: "I have felt lonely in the last 2 months"?', 5);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (16, 'How well does the following statement apply to you: "I have felt unhappy in one or more of my relationships in the last 2 months"?', 5);
 
--- Inserting questions in polish
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (1, 'Jaka jest twoja plec?', 3); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (2, 'Jaki jest twoj wiek?', 5); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (3, 'Jaki jest twij status zwiazkowy?', 3); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (4, 'Czy uzywales/as kiedy alkoholu?', 2); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (5, 'W ubieglym miesiacu, jak czesto uzywales/uzywalas alkohol?', 5); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (6, 'Czy cierpiałeś/as na fizycznym lub psychincznym znęcaniu się przez współmałżonka?', 2); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (7, 'Czy cierpiales/as na fizycznym lub psychincznym znecaniu sie przez partnera w pracy w ostnich dwoch miesiacach (na przykład zastraszanie w miejscu pracy, nacisk grupy na coś, co potem zalowales/as)?', 2); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (8, 'Czy cierpiales/as fizycznie lub psychicznie przez rodzicow, rodzenstwo albo kogos z rodziny?', 2); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (9, 'Czy spożywałeś/as narkotyki (heroinę i silne środki przeciwbólowe, kannabis( hass albo marihuanę) amfetaminy, kokainę, grzyby lub podobne substancje) ?', 2); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (10, 'Jak czesto spozywlaes/as narkotyki przed ostatni miesiac?', 6); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (11, 'Odczuwasz wyroznienie w spoleczenstwie przez swoje pochodzenie?', 2); -- Polish translation needed
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (1, 'Jaka jest twoja plec?', 3);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (2, 'Jaki jest twoj wiek?', 5);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (3, 'Jaki jest twij status zwiazkowy?', 3); 
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (4, 'Czy uzywales/as kiedy alkoholu?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (5, 'W ubieglym miesiacu, jak czesto uzywales/uzywalas alkohol?', 5);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (6, 'Czy cierpiałeś/as na fizycznym lub psychincznym znęcaniu się przez współmałżonka?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (7, 'Czy cierpiales/as na fizycznym lub psychincznym znecaniu sie przez partnera w pracy w ostnich dwoch miesiacach (na przykład zastraszanie w miejscu pracy, nacisk grupy na coś, co potem zalowales/as)?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (8, 'Czy cierpiales/as fizycznie lub psychicznie przez rodzicow, rodzenstwo albo kogos z rodziny?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (9, 'Czy spożywałeś/as narkotyki (heroinę i silne środki przeciwbólowe, kannabis( hass albo marihuanę) amfetaminy, kokainę, grzyby lub podobne substancje) ?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (10, 'Jak czesto spozywlaes/as narkotyki przed ostatni miesiac?', 6);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (11, 'Odczuwasz wyroznienie w spoleczenstwie przez swoje pochodzenie?', 2);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (12, ' Czy ktos bliksi ciebie zmarl w ciagu ostatnich 2 miesiecy?', 2);
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (13, 'Ktore okreslnie najbardziej pasuje do Ciebie: Czułem smutek w ciągu ostatnich 2 miesięcy?', 5); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (14, 'Ktore okreslnie najbardziej pasuje do Ciebie: Myślałem o samobjostwu w ciągu ostatnich 2 miesięcy?', 5); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (15, 'Ktore okreslnie najbardziej pasuje do Ciebie: Czułem samotność w ciągu ostatnich 2 miesięcy?', 5); -- Polish translation needed
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (16, 'Ktore okreslnie najbardziej pasuje do Ciebie: Czułem niezadowolenie z jednego lub więcej moich związków w ciągu ostatnich 3 miesięcy?', 5); -- Polish translation needed
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (13, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Czułem smutek w ciągu ostatnich 2 miesięcy"?', 5);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (14, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Myślałem o samobjostwu w ciągu ostatnich 2 miesięcy"?', 5);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (15, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Czułem samotność w ciągu ostatnich 2 miesięcy"?', 5);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (16, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Czułem niezadowolenie z jednego lub więcej moich związków w ciągu ostatnich 3 miesięcy"?', 5);
 
--- Inserting all options for all questions in icelandic
+
 INSERT INTO OptionsICE (ID, OptionText) VALUES (1, 'Karlkyns');
 INSERT INTO OptionsICE (ID, OptionText) VALUES (2, 'Kvenkyns');
 INSERT INTO OptionsICE (ID, OptionText) VALUES (3, 'Annað');
@@ -201,7 +185,6 @@ INSERT INTO OptionsICE (ID, OptionText) VALUES (26, 'Hvorki né');
 INSERT INTO OptionsICE (ID, OptionText) VALUES (27, 'Frekar ósammála');
 INSERT INTO OptionsICE (ID, OptionText) VALUES (28, 'Mjög ósammála');
 
--- Inserting all options for all questions in english
 INSERT INTO OptionsENG (ID, OptionText) VALUES (1, 'Male');
 INSERT INTO OptionsENG (ID, OptionText) VALUES (2, 'Female');
 INSERT INTO OptionsENG (ID, OptionText) VALUES (3, 'Other');
@@ -231,8 +214,7 @@ INSERT INTO OptionsENG (ID, OptionText) VALUES (26, 'Impartial');
 INSERT INTO OptionsENG (ID, OptionText) VALUES (27, 'Somewhat disagree');
 INSERT INTO OptionsENG (ID, OptionText) VALUES (28, 'Highly disagree');
 
--- Inserting all options for all questions in polish
--- Translation needed
+
 INSERT INTO OptionsPOL (ID, OptionText) VALUES (1, 'Mezczyzna');
 INSERT INTO OptionsPOL (ID, OptionText) VALUES (2, 'Kobieta');
 INSERT INTO OptionsPOL (ID, OptionText) VALUES (3, 'Inne');
@@ -262,7 +244,7 @@ INSERT INTO OptionsPOL (ID, OptionText) VALUES (26, 'PHHvorki né');
 INSERT INTO OptionsPOL (ID, OptionText) VALUES (27, 'Raczej się nie zgadzaj');
 INSERT INTO OptionsPOL (ID, OptionText) VALUES (28, 'Bardzo się nie zgadzam');
 
--- Connecting the questions to options and the next questionText in line - Icelandic
+
 INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID, NextQuestionID) VALUES (1, 1, 1, 2);
 INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID, NextQuestionID) VALUES (2, 1, 2, 2);
 INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID, NextQuestionID) VALUES (3, 1, 3, 2);
@@ -320,7 +302,7 @@ INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID) VALUES (54, 16, 26);
 INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID) VALUES (55, 16, 27);
 INSERT INTO OptionsForAnswersICE (ID, QuestionID, OptionID) VALUES (56, 16, 28);
 
--- Connecting the questions to options and the next questionText in line - English
+
 INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID, NextQuestionID) VALUES (1, 1, 1, 2);
 INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID, NextQuestionID) VALUES (2, 1, 2, 2);
 INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID, NextQuestionID) VALUES (3, 1, 3, 2);
@@ -378,7 +360,7 @@ INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID) VALUES (54, 16, 26);
 INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID) VALUES (55, 16, 27);
 INSERT INTO OptionsForAnswersENG (ID, QuestionID, OptionID) VALUES (56, 16, 28);
 
--- Connecting the questions to options and the next questionText in line - Polish
+
 INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID, NextQuestionID) VALUES (1, 1, 1, 2);
 INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID, NextQuestionID) VALUES (2, 1, 2, 2);
 INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID, NextQuestionID) VALUES (3, 1, 3, 2);
@@ -436,7 +418,7 @@ INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID) VALUES (54, 16, 26);
 INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID) VALUES (55, 16, 27);
 INSERT INTO OptionsForAnswersPOL (ID, QuestionID, OptionID) VALUES (56, 16, 28);
 
--- Inserting assistance resources in icelandic
+
 INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCount) VALUES (1, 'Kvennaathvarf', 'https://www.kvennaathvarf.is', 'Stofnfundur Samtaka um kvennaathvarf var haldinn 2. júní 1982. Þar var ákveðið að opna athvarf fyrir konur sem ekki gætu búið heima hjá sér vegna ofbeldis og 6. desember sama ár var Kvennaathvarfið opnað. Samtök um kvennaathvarf voru í upphafi grasrótarsamtök en árið 1995 var horfið frá því fyrirkomulagi og mynduð formleg samtök. Árið 2010 var stofnuð sjálfseignarstofnun um húseign Kvennaathvarfsins en rekstur athvarfsins hélst óbreyttur.', 1);
 INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCount) VALUES (2, 'Stígamót', 'https://www.stigamot.is/is/um-stigamot', 'Meginmarkmiðin með stofnun Stígamóta eru annars vegar að þau séu staður, sem konur og karlar, sem beitt hafa verið kynferðisofbeldi, geti leitað til, fengið stuðning og deilt reynslu sinni með öðrum, sem einnig hafa verið beittir slíku ofbeldi eða þekkja það vel. Með kynferðisofbeldi er, auk sifjaspella, nauðgana og kynferðislegrar áreitni, einnig átt við klám, vændi og mansal enda er það reynsla Stígamóta jafnt og annarra kvennasamtaka í heiminum að það tekur langan tíma að vinna úr þeirri erfiðu ofbeldisreynslu sem vændi er og að klám er ein birtingarmynd vændis. Mansal er nútíma þrælasala, og algengasta form mansals er mansal til kynlífsþjónustu. ', 2);
 INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCount) VALUES (3, 'Frú Ragnheiður', 'https://www.raudikrossinn.is/hvad-gerum-vid/fru-ragnheidur/', 'Frú Ragnheiður – skaðaminnkun  er verkefni sem hefur það markmið að ná til jaðarsetta hópa í samfélaginu eins og heimilislausra einstaklinga og einstaklinga sem nota vímuefni um æð. Frú Ragnheiður er sérinnréttaður bíll sem er ekið um götur höfuðborgarsvæðisins á kvöldin, sex kvöld í viku.', 1);
@@ -444,7 +426,7 @@ INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCoun
 INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCount) VALUES (5, 'Heilahristingur', 'https://www.raudikrossinn.is/hvad-gerum-vid/heilahristingur/', 'Heilahristingur er heimanámsaðstoð fyrir grunnskólanema frá 4.-10 bekk sem og framhaldsskólanema á höfuðborgarsvæðinu. Áhersla er lögð á að virkja nemendur í námi og hafa það skemmtilegt saman. Markmiðið er að styðja og styrkja nemendur í námi en samhliða því fái þeir tækifæri til að kynnast þeirri þjónustu sem bókasöfn bjóða upp á í tengslum við nám, áhugamál, tómstundir o.fl.', 1);
 INSERT INTO AssistanceResourcesICE(ID, Title, Link, Description, PhoneNumberCount) VALUES (6, 'Engin niðurstaða', 'https://reykjavik.is/stadir/thjonustumidstod-laugardals-og-haaleitis', 'Því miður þá höfum við ekki til staðar þjónustu sem hentar þínum valkostum til þessa. Hins vegar, ef þér finnst að eitthvað sé að valda þér áhyggjum eða ert í vanda. Vinsamlegast hafðu samband við þjónustu miðstöð í þínu hverfi og biddu um ráðgjöf.', 1);
 
--- Inserting assistance resources in english
+
 INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCount) VALUES (1, 'The Womens Shelter', 'https://www.kvennaathvarf.is', 'The Women’s Shelter was established on June 2nd 1982. It was decided on the inaugural meeting to open a shelter for women who were not able to stay in their own homes due to violence. On December the 6th on the same year the Women’s Shelter was opened.', 1);
 INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCount) VALUES (2, 'Stígamót', 'https://www.stigamot.is/is/um-stigamot', 'Free individual counseling for survivors of rape, sexual molestation, sexual harassment, pornographic exploitation and prostitution. Service is for women and men. Services for children are offered by Children’s Protective Services (Barnahús).Teenagers under the age of 18 are welcome once a report has been filed with the Children’s Protective Services. In the event a report has not been filed, please be aware that according to Icelandic law we must report any instances of sexual abuse of a minor, suspected or otherwise. Questions can be sent by email or information requested by phone.', 2);
 INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCount) VALUES (3, 'Frú Ragnheiður', 'https://www.raudikrossinn.is/hvad-gerum-vid/fru-ragnheidur/', 'Frú Ragnheiður – skaðaminnkun  er verkefni sem hefur það markmið að ná til jaðarsetta hópa í samfélaginu eins og heimilislausra einstaklinga og einstaklinga sem nota vímuefni um æð. Frú Ragnheiður er sérinnréttaður bíll sem er ekið um götur höfuðborgarsvæðisins á kvöldin, sex kvöld í viku.', 1);
@@ -452,7 +434,7 @@ INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCoun
 INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCount) VALUES (5, 'Heilahristingur', 'https://www.raudikrossinn.is/hvad-gerum-vid/heilahristingur/', 'Heilahristingur er heimanámsaðstoð fyrir grunnskólanema frá 4.-10 bekk sem og framhaldsskólanema á höfuðborgarsvæðinu. Áhersla er lögð á að virkja nemendur í námi og hafa það skemmtilegt saman. Markmiðið er að styðja og styrkja nemendur í námi en samhliða því fái þeir tækifæri til að kynnast þeirri þjónustu sem bókasöfn bjóða upp á í tengslum við nám, áhugamál, tómstundir o.fl.', 1);
 INSERT INTO AssistanceResourcesENG(ID, Title, Link, Description, PhoneNumberCount) VALUES (6, 'No Result', 'https://reykjavik.is/stadir/thjonustumidstod-laugardals-og-haaleitis', 'Því miður þá höfum við ekki til staðar þjónustu sem hentar þínum valkostum til þessa. Hins vegar, ef þér finnst að eitthvað sé að valda þér áhyggjum eða ert í vanda. Vinsamlegast hafðu samband við þjónustu miðstöð í þínu hverfi og biddu um ráðgjöf.', 1);
 
--- Inserting assistance resources in polish
+
 INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCount) VALUES (1, 'PHKvennaathvarf', 'https://www.kvennaathvarf.is', 'PHStofnfundur Samtaka um kvennaathvarf var haldinn 2. júní 1982. Þar var ákveðið að opna athvarf fyrir konur sem ekki gætu búið heima hjá sér vegna ofbeldis og 6. desember sama ár var Kvennaathvarfið opnað. Samtök um kvennaathvarf voru í upphafi grasrótarsamtök en árið 1995 var horfið frá því fyrirkomulagi og mynduð formleg samtök. Árið 2010 var stofnuð sjálfseignarstofnun um húseign Kvennaathvarfsins en rekstur athvarfsins hélst óbreyttur.', 1);
 INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCount) VALUES (2, 'PHStígamót', 'https://www.stigamot.is/is/um-stigamot', 'PHMeginmarkmiðin með stofnun Stígamóta eru annars vegar að þau séu staður, sem konur og karlar, sem beitt hafa verið kynferðisofbeldi, geti leitað til, fengið stuðning og deilt reynslu sinni með öðrum, sem einnig hafa verið beittir slíku ofbeldi eða þekkja það vel. Með kynferðisofbeldi er, auk sifjaspella, nauðgana og kynferðislegrar áreitni, einnig átt við klám, vændi og mansal enda er það reynsla Stígamóta jafnt og annarra kvennasamtaka í heiminum að það tekur langan tíma að vinna úr þeirri erfiðu ofbeldisreynslu sem vændi er og að klám er ein birtingarmynd vændis. Mansal er nútíma þrælasala, og algengasta form mansals er mansal til kynlífsþjónustu. ', 2);
 INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCount) VALUES (3, 'PHFrú Ragnheiður', 'https://www.raudikrossinn.is/hvad-gerum-vid/fru-ragnheidur/', 'PHFrú Ragnheiður – skaðaminnkun  er verkefni sem hefur það markmið að ná til jaðarsetta hópa í samfélaginu eins og heimilislausra einstaklinga og einstaklinga sem nota vímuefni um æð. Frú Ragnheiður er sérinnréttaður bíll sem er ekið um götur höfuðborgarsvæðisins á kvöldin, sex kvöld í viku.', 1);
@@ -460,7 +442,7 @@ INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCoun
 INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCount) VALUES (5, 'PHHeilahristingur', 'https://www.raudikrossinn.is/hvad-gerum-vid/heilahristingur/', 'PHHeilahristingur er heimanámsaðstoð fyrir grunnskólanema frá 4.-10 bekk sem og framhaldsskólanema á höfuðborgarsvæðinu. Áhersla er lögð á að virkja nemendur í námi og hafa það skemmtilegt saman. Markmiðið er að styðja og styrkja nemendur í námi en samhliða því fái þeir tækifæri til að kynnast þeirri þjónustu sem bókasöfn bjóða upp á í tengslum við nám, áhugamál, tómstundir o.fl.', 1);
 INSERT INTO AssistanceResourcesPOL(ID, Title, Link, Description, PhoneNumberCount) VALUES (6, 'PHEngin niðurstaða', 'https://reykjavik.is/stadir/thjonustumidstod-laugardals-og-haaleitis', 'PHÞví miður þá höfum við ekki til staðar þjónustu sem hentar þínum valkostum til þessa. Hins vegar, ef þér finnst að eitthvað sé að valda þér áhyggjum eða ert í vanda. Vinsamlegast hafðu samband við þjónustu miðstöð í þínu hverfi og biddu um ráðgjöf.', 1);
 
--- Inserting phone numbers for assistance resources
+
 INSERT INTO PhoneNumbers(ID, Number) VALUES (1, '5611205');
 INSERT INTO PhoneNumbers(ID, Number) VALUES (2, '5626868');
 INSERT INTO PhoneNumbers(ID, Number) VALUES (3, '8006868');
@@ -469,7 +451,7 @@ INSERT INTO PhoneNumbers(ID, Number) VALUES (5, 'Panta símatíma á vefsíðunn
 INSERT INTO PhoneNumbers(ID, Number) VALUES (6, '5704000');
 INSERT INTO PhoneNumbers(ID, Number) VALUES (7, '4111500');
 
--- Connecting phone numbers to assistance resources
+
 INSERT INTO PhoneNumbersForResourcesICE(ID, AssistanceResourceID, PhoneNumberID) VALUES (1, 1, 1);
 INSERT INTO PhoneNumbersForResourcesICE(ID, AssistanceResourceID, PhoneNumberID) VALUES (2, 2, 2);
 INSERT INTO PhoneNumbersForResourcesICE(ID, AssistanceResourceID, PhoneNumberID) VALUES (3, 2, 3);

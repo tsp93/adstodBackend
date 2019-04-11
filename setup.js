@@ -14,8 +14,9 @@ async function main() {
 
   // Create the database
   try {
-    const createTable = await readFileAsync('./db.sql');
-    await query(createTable.toString('utf8'));
+    const createDatabase = await readFileAsync('./db.sql');
+    console.info(createDatabase.toString('utf8'));
+    await query(createDatabase.toString('utf8'));
     console.info('Database created');
   } catch (e) {
     console.error('Error creating database:', e.message);
