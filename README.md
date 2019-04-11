@@ -1,3 +1,3 @@
-# Verkefni 4
+# Backend for Adstod app
 
-Keyrist með `npm start`. Verkefnið má finna keyrandi [hér](https://vefforritun-verkefni-4.herokuapp.com/).
+A running version can be found [here](https://adstodBackend.herokuapp.com/).
