@@ -30,23 +30,67 @@ async function getQuestions({ language = 'ICE' }) {
     }
     questions[j].options = options;
   }
-  
   return questions;
 }
 
 /**
+ * Retrieves resources based on answers
+ *
+ * @param {array} answers An array of answers to check
+ * @returns {array} Array of resources for the questionee
+ */
+function checkAnswers(answers) {
+  const assResources = [];
+
+  // In all following comments above if statements:
+  // AR = Assistance Resource
+
+  // If true, this will add the AR "Kvennathvarf"
+  if (answers[0] === 1 && answers[5] === 1) {
+    assResources.push(1);
+  }
+
+  // If true, this will add the AR "Stigamót"
+  if (answers[5] === 1) {
+    assResources.push(2);
+  }
+
+  // If true, this will add the AR "Frú Ragnheiður"
+  if (answers[5] > 3 && answers[10] > 3) {
+    assResources.push(3);
+  }
+
+  // If true, this will add the AR "Heimsóknarvinur"
+  if (answers[2] === 5 && answers[15] > 3) {
+    assResources.push(4);
+  }
+
+  // If true, this will add the AR "Heilahristingur"
+  if (answers[2] === 1 && answers[11] === 1) {
+    assResources.push(5);
+  }
+
+  // If nothing is chosen, then the default AR "Þjónustumiðstöð
+  // Laugardals og Háaleitis" will be sent to the user
+  if (answers.length === 0) {
+    assResources.push(6);
+  }
+  return assResources;
+}
+
+/**
  * Posts results and saves them if user allows. Then returns
- * a bunch of possible places the user can contact. 
+ * a bunch of possible places the user can contact.
  *
  * @param {array} answers An array of answers
- * @param {number} permission 1 if users allow us to save answers, 0 if not 
+ * @param {number} permission 1 if users allow us to save answers, 0 if not
  * @param {string} language The language in which the user answered the questions
- * @returns {array} An array of places the user can contact for assistance 
+ * @returns {array} An array of places the user can contact for assistance
  */
 async function postResults(answers, permission, language) {
-  if (permission == 1) {
-    const savedAnswer = answers.join(",");
-    await query(`INSERT INTO SavedAnswers (Answers) VALUES ($1)`, [savedAnswer]);
+  if (permission === 1) {
+    const savedAnswer = answers.join(',');
+    await query('INSERT INTO SavedAnswers (Answers) VALUES ($1)', [savedAnswer]);
   }
 
   const assResources = checkAnswers(answers);
@@ -75,46 +119,7 @@ async function postResults(answers, permission, language) {
       retResources.phonenumbers.push(bazRows[k].number);
     }
   }
-  
   return retResources;
-}
-
-function checkAnswers(answers) {
-  const assResources = [];
-
-  //In all following comments above if statements:
-  //AR = Assistance Resource
-
-  //If true, this will add the AR "Kvennathvarf"
-  if (answers[0] === 1 && answers[5] === 1) {
-    assResources.push(1);
-  }
-
-  //If true, this will add the AR "Stigamót"
-  if (answers[5] === 1) {
-    assResources.push(2);
-  } 
-
-  //If true, this will add the AR "Frú Ragnheiður"
-  if (answers[5] > 3 && answers[10] > 3) {
-    assResources.push(3);
-  }
-
-  //If true, this will add the AR "Heimsóknarvinur"
-  if (answers[2] === 5 && answers[15] > 3) {
-    assResources.push(4);
-  }
-
-  //If true, this will add the AR "Heilahristingur"
-  if (answers[2] === 1 && answers[11] === 1) {
-    assResources.push(5);
-  }
-
-  //If nothing is chosen, then the default AR "Þjónustumiðstöð Laugardals og Háaleitis" will be sent to the user
-  if (answers.length === 0) {
-    assResources.push(6);
-  }
-  return assResources;
 }
 
 module.exports = {

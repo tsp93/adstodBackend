@@ -1,4 +1,22 @@
-﻿CREATE TABLE QuestionsICE(
+﻿DROP TABLE IF EXISTS QuestionsICE CASCADE;
+DROP TABLE IF EXISTS QuestionsENG CASCADE;
+DROP TABLE IF EXISTS QuestionsPOL CASCADE;
+DROP TABLE IF EXISTS OptionsICE CASCADE;
+DROP TABLE IF EXISTS OptionsENG CASCADE;
+DROP TABLE IF EXISTS OptionsPOL CASCADE;
+DROP TABLE IF EXISTS PhoneNumbers CASCADE;
+DROP TABLE IF EXISTS AssistanceResourcesICE CASCADE;
+DROP TABLE IF EXISTS AssistanceResourcesENG CASCADE;
+DROP TABLE IF EXISTS AssistanceResourcesPOL CASCADE;
+DROP TABLE IF EXISTS PhoneNumbersForResourcesICE CASCADE;
+DROP TABLE IF EXISTS PhoneNumbersForResourcesENG CASCADE;
+DROP TABLE IF EXISTS PhoneNumbersForResourcesPOL CASCADE;
+DROP TABLE IF EXISTS OptionsForAnswersICE CASCADE;
+DROP TABLE IF EXISTS OptionsForAnswersENG CASCADE;
+DROP TABLE IF EXISTS OptionsForAnswersPOL CASCADE;
+DROP TABLE IF EXISTS SavedAnswers CASCADE;
+
+CREATE TABLE QuestionsICE(
   ID SERIAL PRIMARY KEY,
   QuestionText VARCHAR(255) NOT NULL,
   OptionCount INT NOT NULL
@@ -108,30 +126,30 @@ INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (1, 'Kyn?', 3);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (2, 'Aldursbil?', 5);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (3, 'Hjúskaparstaða?', 3);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (4, 'Hefurðu neytt áfengis?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (5, 'Í síðast liðnum mánuði, hversu oft hefurðu neytt áfengis?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (5, 'Í síðastliðnum mánuði, hversu oft hefurðu neytt áfengis?', 5);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (6, 'Hefur þú orðið fyrir andlegu eða líkamlegu ofbeldi af hálfu núverandi maka?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (7, 'Hefur þú orðið fyrir andlegu eða líkamlegu ofbeldi af hálfu samstarfsaðila á síðast liðnum 2 mánuðum? \n (til dæmis einelti á vinnustað, hópþrýstingur í eitthvað sem þú sást eftir o.s.frv)', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (8, 'Hefur þú orðið fyrir alvarlegu andlegu eða líkamlegu ofbeldu af hálfu foreldra, systkyna eða annarra fjölskyldu meðlima á síðustu 2 mánuðum?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (9, 'Hefur þú neytt vímuefna (heróin eða stek verkjalyf, kannabis efni, amfetamín, alsæla, kókaín, sveppir eða sambærileg efni) á síðustu 2 mánuðum?', 2);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (7, 'Hefur þú orðið fyrir andlegu eða líkamlegu ofbeldi af hálfu samstarfsaðila á síðastliðnum 2 mánuðum? (til dæmis einelti á vinnustað, hópþrýstingur í eitthvað sem þú sást eftir o.s.frv)', 2);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (8, 'Hefur þú orðið fyrir alvarlegu andlegu eða líkamlegu ofbeldu af hálfu foreldra, systkina eða annarra fjölskyldumeðlima á síðustu 2 mánuðum?', 2);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (9, 'Hefur þú neytt vímuefna (heróin eða sterk verkjalyf, kannabis efni, amfetamín, alsæla, kókaín, sveppir eða sambærileg efni) á síðustu 2 mánuðum?', 2);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (10, 'Hversu oft hefur þú neytt vímuefna á síðastliðnum mánuði?', 6);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (11, 'Finnst þér þú finna fyrir mismunun í samfélaginu vegna uppruna þíns?', 2);
 INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (12, 'Hefur einhver náin þér dáið á síðastliðnum 2 mánuðum?', 2);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir depurð á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef hugsað um líflát á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum"?', 5);
-INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: \n -"Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (13, 'Hversu vel á eftirfarandi fullyrðing við um þig: -"Ég hef fundið fyrir depurð á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (14, 'Hversu vel á eftirfarandi fullyrðing við um þig: -"Ég hef hugsað um líflát á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (15, 'Hversu vel á eftirfarandi fullyrðing við um þig: -"Ég hef fundið fyrir einmanaleika á síðustu 2 mánuðum"?', 5);
+INSERT INTO QuestionsICE (ID, QuestionText, OptionCount) VALUES (16, 'Hversu vel á eftirfarandi fullyrðing við um þig: -"Ég hef fundið fyrir óánægju í einu eða fleirum af mínum samböndum á síðustu 2 mánuðum"?', 5);
 
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (1, 'Gender?', 3);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (2, 'Age range?', 5);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (3, 'Relationship Status?', 3);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (3, 'Relationship status?', 3);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (4, 'Have you consumed alcohol?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (5, 'How often have you consumed alcohol in the last month?', 5);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (6, 'Have you been subjected to mental or physical abuse by your current spouse?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (7, 'Have you been subjected to mental or physical abuse by a coworker/s in the last 2 months?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (8, 'Have you been subjected to severe mental or physical abuse by a parent, sibling or other family member in the last 2 months?', 2);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (9, 'Have you used drugs (heroin or strong pain medication, kannabis, amfetamin, cocaine, mushrooms or other comparable substances) in the last 2 months?', 2);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (10, 'How often have you used drugs in the last month', 6);
-INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (11, 'Do you feel oppressed in the community due to your origin?', 2);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (9, 'Have you used drugs (heroin or strong pain medication, cannabis, amphetamine, cocaine, mushrooms or other comparable substances) in the last 2 months?', 2);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (10, 'How often have you used drugs in the last month?', 6);
+INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (11, 'Do you feel discriminated against in the community due to your origin?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (12, 'Has anyone close to you died in the last 2 months?', 2);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (13, 'How well does the following statement apply to you: "I have felt sad in the last 2 months"?', 5);
 INSERT INTO QuestionsENG (ID, QuestionText, OptionCount) VALUES (14, 'How well does the following statement apply to you: "I have considered suicide in the last 2 months"?', 5);
@@ -149,7 +167,7 @@ INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (8, 'Czy cierpia
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (9, 'Czy spożywałeś/as narkotyki (heroinę i silne środki przeciwbólowe, kannabis( hass albo marihuanę) amfetaminy, kokainę, grzyby lub podobne substancje) ?', 2);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (10, 'Jak czesto spozywlaes/as narkotyki przed ostatni miesiac?', 6);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (11, 'Odczuwasz wyroznienie w spoleczenstwie przez swoje pochodzenie?', 2);
-INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (12, ' Czy ktos bliksi ciebie zmarl w ciagu ostatnich 2 miesiecy?', 2);
+INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (12, 'Czy ktos bliksi ciebie zmarl w ciagu ostatnich 2 miesiecy?', 2);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (13, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Czułem smutek w ciągu ostatnich 2 miesięcy"?', 5);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (14, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Myślałem o samobjostwu w ciągu ostatnich 2 miesięcy"?', 5);
 INSERT INTO QuestionsPOL (ID, QuestionText, OptionCount) VALUES (15, 'Ktore okreslnie najbardziej pasuje do Ciebie: "Czułem samotność w ciągu ostatnich 2 miesięcy"?', 5);

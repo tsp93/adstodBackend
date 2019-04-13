@@ -20,7 +20,6 @@ async function main() {
     console.info('Database created');
   } catch (e) {
     console.error('Error creating database:', e.message);
-    return;
   }
 }
 

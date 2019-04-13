@@ -31,10 +31,11 @@ async function getQuestionsRoute(req, res) {
 }
 
 /**
- * Route handler to get results
+ * Route handler to post results and get resources
  *
  * @param {object} req Request object
  * @param {object} res Response object
+ * @returns {array} Array of resources
  */
 async function postResultsRoute(req, res) {
   const { answers, permission, language } = req.body;
@@ -42,11 +43,17 @@ async function postResultsRoute(req, res) {
   if (!['ICE', 'ENG', 'POL'].includes(language)) {
     return res.status(400).json({ error: 'Invalid language' });
   }
+  if (answers.length !== 16) {
+    return res.status(400).json({ error: 'Invalid answers' });
+  }
+  if (Number.isInteger(Number(permission))) {
+    return res.status(400).json({ error: 'Invalid permission' });
+  }
 
   const result = await postResults(answers, permission, language);
 
   if (!result) {
-    return res.status(404).json({ error: 'Project not found' });
+    return res.status(404).json({ error: 'No resources found' });
   }
 
   return res.status(200).json(result);
