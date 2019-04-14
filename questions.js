@@ -113,12 +113,13 @@ async function postResults(answers, permission, language) {
     const bazRows = baz[j].rows;
     retResources.push(bazRows[0]);
 
-    retResources.number = null;
-    retResources.phonenumbers = [];
+    retResources[j].phonenumbers = [];
     for (let k = 0; k < bazRows.length; k += 1) {
-      retResources.phonenumbers.push(bazRows[k].number);
+      retResources[j].phonenumbers.push(bazRows[k].number);
     }
+    delete retResources[j].number;
   }
+
   return retResources;
 }
 
