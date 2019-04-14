@@ -72,7 +72,7 @@ function checkAnswers(answers) {
 
   // If nothing is chosen, then the default AR "Þjónustumiðstöð
   // Laugardals og Háaleitis" will be sent to the user
-  if (answers.length === 0) {
+  if (assResources.length === 0) {
     assResources.push(6);
   }
   return assResources;

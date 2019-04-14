@@ -43,12 +43,6 @@ async function postResultsRoute(req, res) {
   if (!['ICE', 'ENG', 'POL'].includes(language)) {
     return res.status(400).json({ error: 'Invalid language' });
   }
-  if (answers.length !== 16) {
-    return res.status(400).json({ error: 'Invalid answers' });
-  }
-  if (Number.isInteger(Number(permission))) {
-    return res.status(400).json({ error: 'Invalid permission' });
-  }
 
   const result = await postResults(answers, permission, language);
 
